@@ -1,4 +1,4 @@
-# My-market (offers-service)
+# My-market (offer-service)
 
 My Market is a project done for our thesis, our intention was to centralize in one place all the offers from small/medium markets which can't afford an own website. Also we took this opportunity to learn Cloud Computing using AWS, and focus deeply in Docker and Microservices.
 
