@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import tesis.offer.models.ItemNotFoundException;
 import tesis.offer.models.OfertaDTO;
 import tesis.offer.models.Offer;
 import tesis.offer.models.OfferTypes;
@@ -24,6 +25,7 @@ import static tesis.offer.utils.ParametersDefaultValue.CLASIFICATIONS;
 import static tesis.offer.utils.ParametersDefaultValue.OFFER_TYPES;
 
 @RestController
+@RequestMapping("offers")
 @Slf4j
 @XRayEnabled
 @RequiredArgsConstructor
@@ -39,7 +41,6 @@ public class OfferController {
 
         if (offer.getId() != null){
             Optional<Offer> offerToUpdate = repo.findById(offer.getId());
-
         }
         return repo.save(offer);
     }
@@ -55,7 +56,7 @@ public class OfferController {
 
     @DeleteMapping("{id}")
     public void delete(@PathVariable Long id) {
-        SaveMultipleOffers offer = SaveMultipleOffers.from(repo.findById(id).orElseThrow(() -> new RuntimeException("Offer not found")));
+        SaveMultipleOffers offer = SaveMultipleOffers.from(repo.findById(id).orElseThrow(() -> new ItemNotFoundException("Offer not found")));
         List<Offer> similarOffers = getOfferFromAllBranches(offer);
 
         repo.deleteAll(similarOffers);
@@ -145,7 +146,7 @@ public class OfferController {
 
     @GetMapping("id/{id}")
     public SaveMultipleOffers getById(@PathVariable Long id){
-        SaveMultipleOffers offer = SaveMultipleOffers.from(repo.findById(id).orElseThrow(() -> new RuntimeException("Offer not found")));
+        SaveMultipleOffers offer = SaveMultipleOffers.from(repo.findById(id).orElseThrow(() -> new ItemNotFoundException("Offer not found")));
         List<Offer> similarOffers = getOfferFromAllBranches(offer);
 
         offer.setNameProduct(repo.getProductName(offer.getProductID()));
