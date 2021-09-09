@@ -38,16 +38,8 @@ public class OfferController {
 
     @PostMapping("/")
     public Offer save(@RequestBody @NotNull Offer offer) {
-
-        if (offer.getId() != null){
-            Optional<Offer> offerToUpdate = repo.findById(offer.getId());
-        }
         return repo.save(offer);
     }
-
-//    public Offer editOffer(@RequestBody @NotNull Offer offer){
-//        return repo.
-//    }
 
     @PostMapping("/multipleSave")
     public void saveMultipleOffers(@RequestBody SaveMultipleOffers offer) {
