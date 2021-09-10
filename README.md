@@ -3,7 +3,7 @@
 My Market is a project done for our thesis, our intention was to centralize in one place all the offers from small/medium markets which can't afford an own website. Also we took this opportunity to learn Cloud Computing using AWS, and focus deeply in Docker and Microservices.
 
 In this repository you will find the backend code of our offers microservice. You can find the rest microservices here:
-- company-service: https://github.com/EnzoRoselli/company-service
+- branch-service: https://github.com/EnzoRoselli/branch-service
 - product-service: https://github.com/EnzoRoselli/product-service
 - user-service: https://github.com/EnzoRoselli/user-service
 
