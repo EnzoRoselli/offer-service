@@ -1,4 +1,4 @@
-package tesis.offer.xray;
+package mymarket.offer.xray;
 
 import com.amazonaws.xray.javax.servlet.AWSXRayServletFilter;
 import org.springframework.context.annotation.Bean;

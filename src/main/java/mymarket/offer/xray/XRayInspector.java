@@ -1,4 +1,4 @@
-package tesis.offer.xray;
+package mymarket.offer.xray;
 
 import com.amazonaws.xray.entities.Subsegment;
 import com.amazonaws.xray.spring.aop.BaseAbstractXRayInterceptor;
@@ -22,5 +22,4 @@ public class XRayInspector extends BaseAbstractXRayInterceptor {
 	@Pointcut("@within(com.amazonaws.xray.spring.aop.XRayEnabled) && bean(*)")
 	public void xrayEnabledClasses() {
 	}
-
 }
