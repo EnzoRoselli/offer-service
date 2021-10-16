@@ -36,7 +36,7 @@ public class OfferService {
         return offerRepository.findById(id).orElseThrow(() -> new OfferNotFoundException("Offer with id" + id + " not found."));
     }
 
-    public List<Offer> getByFilters(Integer productId, Integer branchId, List<OfferTypes> offerTypes, List<Clasifications> clasifications, String productName,
+    public List<Offer> getByFilters(Long productId, Long branchId, List<OfferTypes> offerTypes, List<Clasifications> clasifications, String productName,
                                     LocalDate startDate, LocalDate endDate, LocalDate specificDate, Long userId, String city, Boolean available){
         List<Long> productIds = getProductIdsByClasificationsAndProductName(clasifications, productName);
 

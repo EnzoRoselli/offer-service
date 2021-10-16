@@ -40,8 +40,8 @@ public class OfferController {
     }
 
     @GetMapping
-    public List<Offer> getByFilters(@RequestParam(required = false) Integer productId,
-                                    @RequestParam(required = false) Integer branchId,
+    public List<Offer> getByFilters(@RequestParam(required = false) Long productId,
+                                    @RequestParam(required = false) Long branchId,
                                     @RequestParam(required = false, defaultValue = OFFER_TYPES) List<OfferTypes> offerTypes,
                                     @RequestParam(required = false, defaultValue = CLASIFICATIONS) List<Clasifications> clasifications,
                                     @RequestParam(required = false, defaultValue = "") String productName,
