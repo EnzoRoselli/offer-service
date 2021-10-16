@@ -25,8 +25,6 @@ import static mymarket.product.commons.utils.ParametersDefaultValue.CLASIFICATIO
 @RequiredArgsConstructor
 public class OfferController {
 
-    private final OfferRepository repo;
-
     private final OfferService offerService;
 
     @PostMapping
