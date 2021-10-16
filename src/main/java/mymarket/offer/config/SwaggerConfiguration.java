@@ -17,7 +17,7 @@ public class SwaggerConfiguration {
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("tesis.offer"))
+                .apis(RequestHandlerSelectors.basePackage("mymarket.offer"))
                 .paths(PathSelectors.any())
                 .build();
     }
