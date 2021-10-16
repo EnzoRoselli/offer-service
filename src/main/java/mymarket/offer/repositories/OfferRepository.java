@@ -29,6 +29,6 @@ public interface OfferRepository extends JpaRepository<Offer, Long> {
             "AND (?8 IS NULL OR ?8 = b.city) " +
             "AND o.available = ?9",
             nativeQuery = true)
-    List<Offer> findByFilters(Integer productId, Integer branchId, List<String> offerTypes,
+    List<Offer> findByFilters(Long productId, Long branchId, List<String> offerTypes,
                   LocalDate startDate, LocalDate endDate, LocalDate specificDate, Long userId, String city, Boolean available);
 }
