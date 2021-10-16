@@ -1,4 +1,4 @@
-package mymarket.offer.models;
+package mymarket.offer.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import mymarket.offer.models.enums.OfferTypes;
+import mymarket.offer.model.enums.OfferTypes;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

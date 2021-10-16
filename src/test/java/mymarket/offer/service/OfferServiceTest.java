@@ -1,11 +1,10 @@
-package mymarket.offer.services;
+package mymarket.offer.service;
 
-import mymarket.offer.exceptions.OfferNotFoundException;
-import mymarket.offer.models.Branch;
-import mymarket.offer.models.Offer;
-import mymarket.offer.models.enums.OfferTypes;
-import mymarket.offer.repositories.OfferRepository;
-import mymarket.product.commons.models.Product;
+import mymarket.offer.exception.OfferNotFoundException;
+import mymarket.offer.model.Branch;
+import mymarket.offer.model.Offer;
+import mymarket.offer.model.enums.OfferTypes;
+import mymarket.offer.repository.OfferRepository;
 import mymarket.product.commons.models.enums.Clasifications;
 import org.assertj.core.api.BDDAssertions;
 import org.junit.jupiter.api.BeforeEach;

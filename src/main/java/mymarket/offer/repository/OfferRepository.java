@@ -1,14 +1,11 @@
-package mymarket.offer.repositories;
+package mymarket.offer.repository;
 
-import org.joda.time.DateTime;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import mymarket.offer.models.Offer;
-import mymarket.offer.models.enums.OfferTypes;
+import mymarket.offer.model.Offer;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository

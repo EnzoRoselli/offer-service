@@ -1,4 +1,4 @@
-package mymarket.offer.models.enums;
+package mymarket.offer.model.enums;
 
 import java.util.List;
 import java.util.stream.Collectors;

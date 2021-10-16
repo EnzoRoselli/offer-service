@@ -1,4 +1,4 @@
-package mymarket.offer.configs;
+package mymarket.offer.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

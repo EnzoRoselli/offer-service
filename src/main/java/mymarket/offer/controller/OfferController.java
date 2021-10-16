@@ -1,18 +1,16 @@
-package mymarket.offer.controllers;
+package mymarket.offer.controller;
 
 import com.amazonaws.xray.spring.aop.XRayEnabled;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import mymarket.offer.services.OfferService;
+import mymarket.offer.service.OfferService;
 import mymarket.product.commons.models.enums.Clasifications;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-import mymarket.offer.models.Offer;
-import mymarket.offer.models.enums.OfferTypes;
-import mymarket.offer.repositories.OfferRepository;
+import mymarket.offer.model.Offer;
+import mymarket.offer.model.enums.OfferTypes;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import static mymarket.offer.utils.ParametersDefaultValue.OFFER_TYPES;

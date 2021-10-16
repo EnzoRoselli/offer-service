@@ -1,11 +1,11 @@
-package mymarket.offer.controllers;
+package mymarket.offer.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import mymarket.offer.exceptions.OfferNotFoundException;
-import mymarket.offer.models.Branch;
-import mymarket.offer.models.Offer;
-import mymarket.offer.models.enums.OfferTypes;
-import mymarket.offer.services.OfferService;
+import mymarket.offer.exception.OfferNotFoundException;
+import mymarket.offer.model.Branch;
+import mymarket.offer.model.Offer;
+import mymarket.offer.model.enums.OfferTypes;
+import mymarket.offer.service.OfferService;
 import mymarket.product.commons.models.enums.Clasifications;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;

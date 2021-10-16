@@ -1,8 +1,8 @@
-package mymarket.offer.controllers;
+package mymarket.offer.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import mymarket.offer.exceptions.ErrorMessage;
-import mymarket.offer.exceptions.OfferNotFoundException;
+import mymarket.offer.exception.ErrorMessage;
+import mymarket.offer.exception.OfferNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;

@@ -1,10 +1,10 @@
-package mymarket.offer.services;
+package mymarket.offer.service;
 
 import lombok.RequiredArgsConstructor;
-import mymarket.offer.exceptions.OfferNotFoundException;
-import mymarket.offer.models.Offer;
-import mymarket.offer.models.enums.OfferTypes;
-import mymarket.offer.repositories.OfferRepository;
+import mymarket.offer.exception.OfferNotFoundException;
+import mymarket.offer.model.Offer;
+import mymarket.offer.model.enums.OfferTypes;
+import mymarket.offer.repository.OfferRepository;
 import mymarket.product.commons.models.Product;
 import mymarket.product.commons.models.enums.Clasifications;
 import org.springframework.beans.factory.annotation.Value;

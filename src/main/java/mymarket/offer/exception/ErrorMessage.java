@@ -1,4 +1,4 @@
-package mymarket.offer.exceptions;
+package mymarket.offer.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
