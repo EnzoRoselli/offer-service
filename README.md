@@ -33,6 +33,9 @@ In this repository you will find the backend code of our offers microservice. Yo
   - DB_URL = jdbc:mysql://localhost:3306/exampleDBName
   - DB_USERNAME = myMarketUser
   - DB_PASSWORD = 9f1e2b88-fa7f-418f-9406-799d52abb3b3
+  - PRODUCTS_URL = localhost:8081
+  - TIP: Click on Run/Debug Configurations -> Edit Configuration -> Environment variables -> Paste this: DB_USERNAME=myMarketUser;DB_PASSWORD=9f1e2b88-fa7f-418f-9406-799d52abb3b3;DB_URL=jdbc:mysql://localhost:3306/exampleDBName;PRODUCTS_URL=localhost:8081
+
 - Use Swagger to access all the endpoints : https://app.swaggerhub.com/apis/EnzoRoselli/MyMarket/1.0.0
 
 ## Branching (GitFlow) :sparkler:

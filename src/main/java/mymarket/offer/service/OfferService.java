@@ -7,6 +7,7 @@ import mymarket.offer.model.enums.OfferTypes;
 import mymarket.offer.repository.OfferRepository;
 import mymarket.product.commons.models.Product;
 import mymarket.product.commons.models.enums.Clasifications;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -24,7 +25,7 @@ public class OfferService {
     @Value("${products-url}")
     private String productUrl;
 
-    private RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
 
     public Offer save(Offer offer){
         return offerRepository.save(offer);
