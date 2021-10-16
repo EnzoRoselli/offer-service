@@ -13,7 +13,7 @@ import mymarket.offer.model.enums.OfferTypes;
 import java.time.LocalDate;
 import java.util.List;
 
-import static mymarket.offer.utils.ParametersDefaultValue.OFFER_TYPES;
+import static mymarket.offer.util.ParametersDefaultValue.OFFER_TYPES;
 import static mymarket.product.commons.utils.ParametersDefaultValue.CLASIFICATIONS;
 
 @RestController

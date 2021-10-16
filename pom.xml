@@ -140,10 +140,10 @@
                             <excludes>
                                 <exclude>**/*OffersApplication.class</exclude>
                                 <exclude>**/xray/**</exclude>
-                                <exclude>**/models/**</exclude>
-                                <exclude>**/utils/**</exclude>
-                                <exclude>**/exceptions/**</exclude>
-                                <exclude>**/configs/**</exclude>
+                                <exclude>**/model/**</exclude>
+                                <exclude>**/util/**</exclude>
+                                <exclude>**/exception/**</exclude>
+                                <exclude>**/config/**</exclude>
                             </excludes>
                         </configuration>
                     </execution>
