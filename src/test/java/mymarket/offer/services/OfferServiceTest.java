@@ -16,6 +16,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
+
 import java.time.LocalDate;
 
 
@@ -33,6 +37,9 @@ class OfferServiceTest {
 
     @Mock
     private OfferRepository offerRepository;
+
+    @Mock
+    private RestTemplate restTemplate;
 
     @InjectMocks
     private OfferService offerService;
@@ -123,15 +130,14 @@ class OfferServiceTest {
 
     @Test
     public void getByFilters_ExpectedValues_Ok() {
-        OfferService spyOfferService = Mockito.spy(offerService);
-        doReturn(Arrays.asList(1L, 2L, 3L)).when(spyOfferService).getProductIdsByClasificationsAndProductName(anyList(), anyString());
-
         //given
         given(offerRepository.findByFilters(anyLong(), anyLong(), anyList(), any(), any(), any(), anyLong(), anyString(), anyBoolean()))
                 .willReturn(offerList);
+        given(restTemplate.getForEntity(anyString(), any()))
+                .willReturn(new ResponseEntity(new Product[]{Product.builder().id(1L).build()}, HttpStatus.OK));
 
         //when
-        List<Offer> offers = spyOfferService.getByFilters(1L, 1L, Arrays.asList(OfferTypes.values()), Arrays.asList(Clasifications.values()),
+        List<Offer> offers = offerService.getByFilters(1L, 1L, Arrays.asList(OfferTypes.values()), Arrays.asList(Clasifications.values()),
                 "harina", LocalDate.of(2021, 1, 1), LocalDate.of(2021, 12, 24), null,
                 1L, "Mar del Plata", true);
 
@@ -142,5 +148,21 @@ class OfferServiceTest {
         assertThat(offers).isNotNull();
         assertThat(offers).hasSize(2);
         assertThat(offers).isEqualTo(offerList);
+    }
+
+    @Test
+    public void getProductIdsByClasificationsAndProductName_ExpectedValues_Ok(){
+        //given
+        given(restTemplate.getForEntity(anyString(), any()))
+                .willReturn(new ResponseEntity(new Product[]{Product.builder().id(1L).build(),
+                        Product.builder().id(3L).build()}, HttpStatus.OK));
+
+        //when
+        List<Long> productIds = offerService.getProductIdsByClasificationsAndProductName(Arrays.asList(Clasifications.values()), "Harina");
+
+        //then
+        assertThat(productIds).isNotNull();
+        assertThat(productIds).hasSize(2);
+        assertThat(productIds).isEqualTo(Arrays.asList(1L, 3L));
     }
 }
