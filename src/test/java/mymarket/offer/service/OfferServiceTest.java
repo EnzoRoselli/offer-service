@@ -115,7 +115,7 @@ class OfferServiceTest {
     @Test
     public void getById_NonexistentId_OfferNotFoundException() {
         //given
-        BDDMockito.willThrow(new OfferNotFoundException("Offer with id 3 not found.")).given(offerRepository).findById(anyLong());
+        given(offerRepository.findById(anyLong())).willReturn(Optional.empty());
 
         //when
         when(() -> offerService.getById(3L));

@@ -34,7 +34,7 @@ public class OfferService {
     public void deleteById(Long id){ offerRepository.deleteById(id); }
 
     public Offer getById(Long id){
-        return offerRepository.findById(id).orElseThrow(() -> new OfferNotFoundException("Offer with id" + id + " not found."));
+        return offerRepository.findById(id).orElseThrow(() -> new OfferNotFoundException("Offer with id " + id + " not found."));
     }
 
     public List<Offer> getByFilters(Long productId, Long branchId, List<OfferTypes> offerTypes, List<Clasifications> clasifications, String productName,
