@@ -3,12 +3,12 @@ package mymarket.offer.controller;
 import com.amazonaws.xray.spring.aop.XRayEnabled;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import mymarket.offer.model.Offer;
+import mymarket.offer.model.enums.OfferTypes;
 import mymarket.offer.service.OfferService;
 import mymarket.product.commons.models.enums.Clasifications;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
-import mymarket.offer.model.Offer;
-import mymarket.offer.model.enums.OfferTypes;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -46,12 +46,12 @@ public class OfferController {
                                     @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate specificDate,
                                     @RequestParam(required = false) Long userId,
                                     @RequestParam(required = false) String city,
-                                    @RequestParam(required = false, defaultValue = "true") Boolean available){
+                                    @RequestParam(required = false, defaultValue = "true") Boolean available) {
         return offerService.getByFilters(productId, branchId, offerTypes, clasifications, productName, startDate, endDate, specificDate, userId, city, available);
     }
 
     @GetMapping("{id}")
-    public Offer getById(@PathVariable Long id){
+    public Offer getById(@PathVariable Long id) {
         return offerService.getById(id);
     }
 }

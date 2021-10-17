@@ -12,14 +12,14 @@ import java.util.Map;
 @Aspect
 @Component
 public class XRayInspector extends BaseAbstractXRayInterceptor {
-	@Override
-	protected Map<String, Map<String, Object>> generateMetadata(ProceedingJoinPoint proceedingJoinPoint,
+    @Override
+    protected Map<String, Map<String, Object>> generateMetadata(ProceedingJoinPoint proceedingJoinPoint,
                                                                 Subsegment subsegment) {
-		return super.generateMetadata(proceedingJoinPoint, subsegment);
-	}
+        return super.generateMetadata(proceedingJoinPoint, subsegment);
+    }
 
-	@Override
-	@Pointcut("@within(com.amazonaws.xray.spring.aop.XRayEnabled) && bean(*)")
-	public void xrayEnabledClasses() {
-	}
+    @Override
+    @Pointcut("@within(com.amazonaws.xray.spring.aop.XRayEnabled) && bean(*)")
+    public void xrayEnabledClasses() {
+    }
 }

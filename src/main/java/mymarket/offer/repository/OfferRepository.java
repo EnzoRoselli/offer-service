@@ -1,9 +1,9 @@
 package mymarket.offer.repository;
 
+import mymarket.offer.model.Offer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import mymarket.offer.model.Offer;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -27,5 +27,5 @@ public interface OfferRepository extends JpaRepository<Offer, Long> {
             "AND o.available = ?9",
             nativeQuery = true)
     List<Offer> findByFilters(Long productId, Long branchId, List<String> offerTypes,
-                  LocalDate startDate, LocalDate endDate, LocalDate specificDate, Long userId, String city, Boolean available);
+                              LocalDate startDate, LocalDate endDate, LocalDate specificDate, Long userId, String city, Boolean available);
 }
