@@ -1,88 +1,58 @@
+CREATE TABLE `products` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `clasification` enum('CuidadoPersonal','Limpieza','Bebidas','Almacen') DEFAULT NULL,
+  `description` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+);
 
-CREATE TABLE IF NOT EXISTS roles(
-    id int auto_increment,
-    description varchar(255) unique not null,
-    CONSTRAINT pk_roles PRIMARY KEY(id)
-    );
 
-create table IF NOT EXISTS products(
-    id int auto_increment,
-    name varchar(255) unique not null,
-    image varchar(255) not null,
-    description varchar(255) not null,
-    constraint pk_products primary key(id)
-    );
+CREATE TABLE `users` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `role` varchar(45) NOT NULL DEFAULT 'user',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
+);
 
-CREATE TABLE IF NOT EXISTS users(
-    id int auto_increment,
-    name varchar(255),
-    email varchar(255) unique,
-    password varchar(255),
-    city varchar(255),
-    CONSTRAINT pk_users PRIMARY KEY(id)
-    );
 
-CREATE TABLE IF NOT EXISTS users_x_roles(
-    user_id int,
-    role_id int,
-    CONSTRAINT pk_users_x_roles PRIMARY KEY(user_id, role_id),
-    CONSTRAINT fk_users_x_roles_user_id FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,
-    CONSTRAINT fk_users_x_roles_role_id FOREIGN KEY(role_id) REFERENCES roles(id) ON DELETE CASCADE
-    );
+CREATE TABLE `branches` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `address` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `latitude` varchar(45) DEFAULT NULL,
+  `longitude` varchar(45) DEFAULT NULL,
+  `user_id` int NOT NULL,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_branches_user_id` (`user_id`),
+  CONSTRAINT `fk_branches_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+);
 
-CREATE TABLE IF NOT EXISTS cards(
-    id int auto_increment,
-    name varchar(255),
-    issuing_bank varchar(255),
-    CONSTRAINT pk_credit_cards PRIMARY KEY(id)
-    );
 
-CREATE TABLE IF NOT EXISTS accounts(
-    id int auto_increment,
-    user_id int,
-    credit_card_id int,
-    CONSTRAINT pk_accounts PRIMARY KEY(id),
-    CONSTRAINT fk_accounts_user_id FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,
-    CONSTRAINT fk_accounts_credit_card_id FOREIGN KEY(credit_card_id) REFERENCES credit_cards(id) ON DELETE CASCADE
-    );
+CREATE TABLE `offers` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `product_id` int NOT NULL,
+  `price` float NOT NULL,
+  `offer_type` enum('discount','promotion','quantity') NOT NULL,
+  `from_date` datetime DEFAULT NULL,
+  `to_date` datetime DEFAULT NULL,
+  `available` tinyint(1) NOT NULL DEFAULT '1',
+  `old_price` float NOT NULL,
+  `offer_description` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_offers_product_id` (`product_id`),
+  CONSTRAINT `fk_offers_product_id` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
+);
 
-CREATE TABLE IF NOT EXISTS subscriptions(
-    user_id int,
-    product_id int,
-    CONSTRAINT pk_subscriptions PRIMARY KEY(user_id, product_id),
-    CONSTRAINT fk_subscriptions_user_id FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE,
-    CONSTRAINT fk_subscriptions_product_id FOREIGN KEY(product_id) REFERENCES products(id) ON DELETE CASCADE
-    );
 
-create table IF NOT EXISTS companies(
-    id int auto_increment,
-    name varchar(255),
-    image varchar(255),
-    constraint pk_companies primary key(id)
-    );
-
-create table IF NOT EXISTS branches(
-    id int auto_increment,
-    company_id int,
-    location varchar(255),
-    city varchar(255),
-    constraint pk_branches primary key(id),
-    constraint fk_branches_company_id foreign key(company_id)references companies(id) ON DELETE CASCADE
-    );
-
-create table IF NOT EXISTS offers(
-    id int auto_increment,
-    product_id int,
-    company_id int,
-    card_id int,
-    price float,
-    offer_type ENUM("discount","promotion","quantity"),
-    from_date timestamp,
-    to_date timestamp,
-    avaliable boolean,
-    description varchar(255),
-    constraint pk_offers primary key(id),
-    constraint fk_offers_product_id foreign key(product_id) references products(id) ,
-    constraint fk_offers_company_id foreign key(company_id) references companies(id) ,
-    constraint fk_offers_card_id foreign key (card_id) references credit_cards(id)
-    );
+CREATE TABLE `branches_x_offers` (
+  `branch_id` int NOT NULL,
+  `offer_id` int NOT NULL,
+  KEY `branches_x_offers_FK` (`branch_id`),
+  KEY `branches_x_offers_FK_1` (`offer_id`),
+  CONSTRAINT `branches_x_offers_FK` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`),
+  CONSTRAINT `branches_x_offers_FK_1` FOREIGN KEY (`offer_id`) REFERENCES `offers` (`id`)
+);
