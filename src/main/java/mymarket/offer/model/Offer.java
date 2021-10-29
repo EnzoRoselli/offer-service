@@ -1,6 +1,7 @@
 package mymarket.offer.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import mymarket.offer.model.enums.OfferTypes;
 
@@ -44,4 +45,7 @@ public class Offer {
     private Float oldPrice;
     @Column(name = "offer_description")
     private String offerDescription;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "offer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Partner> partners;
 }
