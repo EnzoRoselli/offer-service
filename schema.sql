@@ -47,7 +47,6 @@ CREATE TABLE `offers` (
   CONSTRAINT `fk_offers_product_id` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
 );
 
-
 CREATE TABLE `branches_x_offers` (
   `branch_id` int NOT NULL,
   `offer_id` int NOT NULL,
@@ -55,4 +54,14 @@ CREATE TABLE `branches_x_offers` (
   KEY `branches_x_offers_FK_1` (`offer_id`),
   CONSTRAINT `branches_x_offers_FK` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`),
   CONSTRAINT `branches_x_offers_FK_1` FOREIGN KEY (`offer_id`) REFERENCES `offers` (`id`)
+);
+
+CREATE TABLE `partners` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `partners` enum('PedidosYa','MercadoLibre','Rappi') DEFAULT NULL,
+  `link` varchar(255) DEFAULT NULL,
+  `offer_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_partners_offer_id` (`offer_id`),
+  CONSTRAINT `fk_partners_offer_id` FOREIGN KEY (`offer_id`) REFERENCES `offers` (`id`)
 );
