@@ -6,17 +6,18 @@ import lombok.extern.slf4j.Slf4j;
 import mymarket.offer.model.Offer;
 import mymarket.offer.model.enums.OfferTypes;
 import mymarket.offer.service.OfferService;
-import mymarket.product.commons.models.Product;
 import mymarket.product.commons.models.enums.Clasifications;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-<<<<<<< HEAD
-import mymarket.offer.model.Offer;
-import mymarket.offer.model.enums.OfferTypes;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-=======
->>>>>>> e6d6662d4342e2af1e376baf57f8ee38d794a6f1
 
 import java.net.URI;
 import java.time.LocalDate;
@@ -46,16 +47,16 @@ public class OfferController {
 
     @GetMapping
     public ResponseEntity<List<Offer>> getByFilters(@RequestParam(required = false) Long productId,
-                                    @RequestParam(required = false) Long branchId,
-                                    @RequestParam(required = false, defaultValue = OFFER_TYPES) List<OfferTypes> offerTypes,
-                                    @RequestParam(required = false, defaultValue = CLASIFICATIONS) List<Clasifications> clasifications,
-                                    @RequestParam(required = false, defaultValue = "") String productName,
-                                    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-                                    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
-                                    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate specificDate,
-                                    @RequestParam(required = false) Long userId,
-                                    @RequestParam(required = false) String city,
-                                    @RequestParam(required = false, defaultValue = "true") Boolean available){
+                                                    @RequestParam(required = false) Long branchId,
+                                                    @RequestParam(required = false, defaultValue = OFFER_TYPES) List<OfferTypes> offerTypes,
+                                                    @RequestParam(required = false, defaultValue = CLASIFICATIONS) List<Clasifications> clasifications,
+                                                    @RequestParam(required = false, defaultValue = "") String productName,
+                                                    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+                                                    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
+                                                    @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate specificDate,
+                                                    @RequestParam(required = false) Long userId,
+                                                    @RequestParam(required = false) String city,
+                                                    @RequestParam(required = false, defaultValue = "true") Boolean available) {
         List<Offer> offers = offerService.getByFilters(productId, branchId, offerTypes, clasifications, productName, startDate, endDate, specificDate, userId, city, available);
 
         return offers.isEmpty() ?
