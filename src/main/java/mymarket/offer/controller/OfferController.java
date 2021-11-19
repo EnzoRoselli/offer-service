@@ -4,12 +4,16 @@ import com.amazonaws.xray.spring.aop.XRayEnabled;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import mymarket.offer.service.OfferService;
+import mymarket.product.commons.models.Product;
 import mymarket.product.commons.models.enums.Clasifications;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import mymarket.offer.model.Offer;
 import mymarket.offer.model.enums.OfferTypes;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -26,8 +30,8 @@ public class OfferController {
     private final OfferService offerService;
 
     @PostMapping
-    public Offer save(@RequestBody Offer offer) {
-        return offerService.save(offer);
+    public ResponseEntity<Offer> save(@RequestBody Offer offer) {
+        return ResponseEntity.created(getLocation(offerService.save(offer))).build();
     }
 
     @DeleteMapping("{id}")
@@ -36,7 +40,7 @@ public class OfferController {
     }
 
     @GetMapping
-    public List<Offer> getByFilters(@RequestParam(required = false) Long productId,
+    public ResponseEntity<List<Offer>> getByFilters(@RequestParam(required = false) Long productId,
                                     @RequestParam(required = false) Long branchId,
                                     @RequestParam(required = false, defaultValue = OFFER_TYPES) List<OfferTypes> offerTypes,
                                     @RequestParam(required = false, defaultValue = CLASIFICATIONS) List<Clasifications> clasifications,
@@ -47,11 +51,24 @@ public class OfferController {
                                     @RequestParam(required = false) Long userId,
                                     @RequestParam(required = false) String city,
                                     @RequestParam(required = false, defaultValue = "true") Boolean available){
-        return offerService.getByFilters(productId, branchId, offerTypes, clasifications, productName, startDate, endDate, specificDate, userId, city, available);
+        List<Offer> offers = offerService.getByFilters(productId, branchId, offerTypes, clasifications, productName, startDate, endDate, specificDate, userId, city, available);
+
+        return offers.isEmpty() ?
+                ResponseEntity.noContent().build() :
+                ResponseEntity.ok(offers);
     }
 
     @GetMapping("{id}")
     public Offer getById(@PathVariable Long id){
         return offerService.getById(id);
+    }
+
+    private URI getLocation(Offer offer) {
+
+        return ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(offer.getId())
+                .toUri();
     }
 }
