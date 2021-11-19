@@ -1,11 +1,8 @@
 package mymarket.offer.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 import mymarket.offer.model.enums.OfferTypes;
 
 import javax.persistence.*;
@@ -43,9 +40,12 @@ public class Offer {
     private LocalDateTime toDate;
     @Column(name = "available", nullable = false)
     @Builder.Default
-    private Boolean available=true;
+    private Boolean available = true;
     @Column(name = "old_price", nullable = false)
     private Float oldPrice;
     @Column(name = "offer_description")
     private String offerDescription;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "offer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Partner> partners;
 }

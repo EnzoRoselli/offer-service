@@ -1,7 +1,7 @@
 package mymarket.offer.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import mymarket.offer.exception.OfferNotFoundException;
+import mymarket.exception.commons.exception.NotFoundException;
 import mymarket.offer.model.Branch;
 import mymarket.offer.model.Offer;
 import mymarket.offer.model.enums.OfferTypes;
@@ -163,7 +163,7 @@ public class OfferControllerTest {
     @Test
     public void getById_NonexistentId_OfferNotFoundException() throws Exception {
         //given
-        BDDMockito.willThrow(new OfferNotFoundException("")).given(offerService).getById(anyLong());
+        BDDMockito.willThrow(new NotFoundException("")).given(offerService).getById(anyLong());
 
         //when
         MockHttpServletResponse response = mockMvc.perform(get("/offers/150")

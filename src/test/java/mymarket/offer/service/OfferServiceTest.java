@@ -1,6 +1,6 @@
 package mymarket.offer.service;
 
-import mymarket.offer.exception.OfferNotFoundException;
+import mymarket.exception.commons.exception.NotFoundException;
 import mymarket.offer.model.Branch;
 import mymarket.offer.model.Offer;
 import mymarket.offer.model.enums.OfferTypes;
@@ -11,7 +11,6 @@ import org.assertj.core.api.BDDAssertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -20,11 +19,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
-
-
 import java.util.*;
 
-import static com.googlecode.catchexception.apis.BDDCatchException.*;
+import static com.googlecode.catchexception.apis.BDDCatchException.caughtException;
+import static com.googlecode.catchexception.apis.BDDCatchException.when;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -70,7 +68,7 @@ class OfferServiceTest {
     }
 
     @Test
-    public void save_ExpectedValues_Ok(){
+    public void save_ExpectedValues_Ok() {
         //given
         given(offerRepository.save(any())).willReturn(offer1);
 
@@ -115,14 +113,14 @@ class OfferServiceTest {
     @Test
     public void getById_NonexistentId_OfferNotFoundException() {
         //given
-        BDDMockito.willThrow(new OfferNotFoundException("Offer with id 3 not found.")).given(offerRepository).findById(anyLong());
+        given(offerRepository.findById(anyLong())).willReturn(Optional.empty());
 
         //when
         when(() -> offerService.getById(3L));
 
         //then
         BDDAssertions.then(caughtException())
-                .isInstanceOf(OfferNotFoundException.class)
+                .isInstanceOf(NotFoundException.class)
                 .hasMessage("Offer with id 3 not found.")
                 .hasNoCause();
     }
@@ -150,7 +148,7 @@ class OfferServiceTest {
     }
 
     @Test
-    public void getProductIdsByClasificationsAndProductName_ExpectedValues_Ok(){
+    public void getProductIdsByClasificationsAndProductName_ExpectedValues_Ok() {
         //given
         given(restTemplate.getForEntity(anyString(), any()))
                 .willReturn(new ResponseEntity(new Product[]{Product.builder().id(1L).build(),

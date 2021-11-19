@@ -3,15 +3,20 @@ package mymarket.offer.controller;
 import com.amazonaws.xray.spring.aop.XRayEnabled;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import mymarket.offer.model.Offer;
+import mymarket.offer.model.enums.OfferTypes;
 import mymarket.offer.service.OfferService;
 import mymarket.product.commons.models.Product;
 import mymarket.product.commons.models.enums.Clasifications;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+<<<<<<< HEAD
 import mymarket.offer.model.Offer;
 import mymarket.offer.model.enums.OfferTypes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+=======
+>>>>>>> e6d6662d4342e2af1e376baf57f8ee38d794a6f1
 
 import java.net.URI;
 import java.time.LocalDate;
@@ -56,10 +61,11 @@ public class OfferController {
         return offers.isEmpty() ?
                 ResponseEntity.noContent().build() :
                 ResponseEntity.ok(offers);
+
     }
 
     @GetMapping("{id}")
-    public Offer getById(@PathVariable Long id){
+    public Offer getById(@PathVariable Long id) {
         return offerService.getById(id);
     }
 

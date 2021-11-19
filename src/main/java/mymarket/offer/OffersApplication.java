@@ -13,7 +13,7 @@ public class OffersApplication {
     }
 
     @Bean
-    public RestTemplate getRestTemplateClient(){
+    public RestTemplate getRestTemplateClient() {
         return new RestTemplate();
     }
 }
