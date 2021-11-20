@@ -70,7 +70,7 @@ class OfferServiceTest {
     @Test
     public void save_ExpectedValues_Ok() {
         //given
-        given(offerRepository.save(any())).willReturn(offer1);
+        given(offerRepository.save(offer1)).willReturn(offer1);
 
         //when
         Offer offer = offerService.save(offer1);
@@ -97,15 +97,17 @@ class OfferServiceTest {
 
     @Test
     public void getById_ExpectedValues_Ok() {
+        Long offerId= offer1.getId();
+
         //given
         Optional<Offer> offerOptional = Optional.of(offer1);
-        given(offerRepository.findById(anyLong())).willReturn(offerOptional);
+        given(offerRepository.findById(offerId)).willReturn(offerOptional);
 
         //when
-        Offer offerFromRepository = offerService.getById(1L);
+        Offer offerFromRepository = offerService.getById(offerId);
 
         //then
-        then(offerRepository).should().findById(1L);
+        then(offerRepository).should().findById(offerId);
         assertThat(offerFromRepository).isNotNull();
         assertThat(offerFromRepository).isEqualTo(offerOptional.get());
     }

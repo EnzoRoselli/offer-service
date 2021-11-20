@@ -81,7 +81,7 @@ public class OfferControllerTest {
     @Test
     public void save_ExpectedValues_Ok() throws Exception {
         //given
-        given(offerService.save(any())).willReturn(offer1);
+        given(offerService.save(offer1)).willReturn(offer1);
 
         //when
         MockHttpServletResponse response = mockMvc.perform(post("/offers/")
@@ -92,7 +92,7 @@ public class OfferControllerTest {
 
         //then
         then(offerService).should().save(offer1);
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
         assertThat(response.getContentType()).isEqualTo(MediaType.APPLICATION_JSON.toString());
         assertThat(response.getContentAsString()).isEqualTo(asJsonString(offer1));
     }
@@ -116,62 +116,70 @@ public class OfferControllerTest {
 
     @Test
     public void deleteById_ExpectedValues_Ok() throws Exception {
+        Long offerId = 1L;
+
         //given
         willDoNothing().given(offerService).deleteById(anyLong());
 
         //when
-        MockHttpServletResponse response = mockMvc.perform(delete("/offers/1")
+        MockHttpServletResponse response = mockMvc.perform(delete("/offers/" + offerId)
                 .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
         //then
-        then(offerService).should().deleteById(1L);
+        then(offerService).should().deleteById(offerId);
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
     }
 
     @Test
     public void deleteById_NonexistentId_EmptyResultDataAccessException() throws Exception {
+        Long offerId = 150L;
+
         //given
         willThrow(new EmptyResultDataAccessException(0)).given(offerService).deleteById(anyLong());
 
         //when
-        MockHttpServletResponse response = mockMvc.perform(delete("/offers/150")
+        MockHttpServletResponse response = mockMvc.perform(delete("/offers/" + offerId)
                 .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
         //then
-        then(offerService).should().deleteById(150L);
+        then(offerService).should().deleteById(offerId);
         assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
     }
 
     @Test
     public void getById_ExpectedValues_Ok() throws Exception {
+        Long offerId= offer1.getId();
+
         //given
-        given(offerService.getById(anyLong())).willReturn(offer1);
+        given(offerService.getById(offerId)).willReturn(offer1);
 
         //when
-        MockHttpServletResponse response = mockMvc.perform(get("/offers/4")
+        MockHttpServletResponse response = mockMvc.perform(get("/offers/" + offerId)
                 .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
         //then
-        then(offerService).should().getById(4L);
+        then(offerService).should().getById(offerId);
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString()).isEqualTo(asJsonString(offer1));
     }
 
     @Test
     public void getById_NonexistentId_OfferNotFoundException() throws Exception {
+        Long offerId = 150L;
+
         //given
-        BDDMockito.willThrow(new NotFoundException("")).given(offerService).getById(anyLong());
+        BDDMockito.willThrow(new NotFoundException("")).given(offerService).getById(offerId);
 
         //when
-        MockHttpServletResponse response = mockMvc.perform(get("/offers/150")
+        MockHttpServletResponse response = mockMvc.perform(get("/offers/" + offerId)
                 .accept(MediaType.APPLICATION_JSON))
                 .andReturn().getResponse();
 
         //then
-        then(offerService).should().getById(150L);
+        then(offerService).should().getById(offerId);
         assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
     }
 
