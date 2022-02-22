@@ -78,7 +78,16 @@ class OfferServiceTest {
         //then
         then(offerRepository).should().save(offer1);
         assertThat(offer).isNotNull();
-        assertThat(offer).isEqualTo(offer1);
+        assertThat(offer.getAvailable()).isEqualTo(offer1.getAvailable());
+        assertThat(offer.getBranches()).isEqualTo(offer1.getBranches());
+        assertThat(offer.getFromDate()).isEqualTo(offer1.getFromDate());
+        assertThat(offer.getId()).isEqualTo(offer1.getId());
+        assertThat(offer.getOfferDescription()).isEqualTo(offer1.getOfferDescription());
+        assertThat(offer.getOfferType()).isEqualTo(offer1.getOfferType());
+        assertThat(offer.getPrice()).isEqualTo(offer1.getPrice());
+        assertThat(offer.getOldPrice()).isEqualTo(offer1.getOldPrice());
+        assertThat(offer.getToDate()).isEqualTo(offer1.getToDate());
+        assertThat(offer.getPartners()).isEqualTo(offer1.getPartners());
     }
 
     @Test
@@ -109,7 +118,18 @@ class OfferServiceTest {
         //then
         then(offerRepository).should().findById(offerId);
         assertThat(offerFromRepository).isNotNull();
-        assertThat(offerFromRepository).isEqualTo(offerOptional.get());
+
+        assertThat(offerFromRepository).isNotNull();
+        assertThat(offerFromRepository.getAvailable()).isEqualTo(offerOptional.get().getAvailable());
+        assertThat(offerFromRepository.getBranches()).isEqualTo(offerOptional.get().getBranches());
+        assertThat(offerFromRepository.getFromDate()).isEqualTo(offerOptional.get().getFromDate());
+        assertThat(offerFromRepository.getId()).isEqualTo(offerOptional.get().getId());
+        assertThat(offerFromRepository.getOfferDescription()).isEqualTo(offerOptional.get().getOfferDescription());
+        assertThat(offerFromRepository.getOfferType()).isEqualTo(offerOptional.get().getOfferType());
+        assertThat(offerFromRepository.getPrice()).isEqualTo(offerOptional.get().getPrice());
+        assertThat(offerFromRepository.getOldPrice()).isEqualTo(offerOptional.get().getOldPrice());
+        assertThat(offerFromRepository.getToDate()).isEqualTo(offerOptional.get().getToDate());
+        assertThat(offerFromRepository.getPartners()).isEqualTo(offerOptional.get().getPartners());
     }
 
     @Test
@@ -162,6 +182,7 @@ class OfferServiceTest {
         //then
         assertThat(productIds).isNotNull();
         assertThat(productIds).hasSize(2);
-        assertThat(productIds).isEqualTo(Arrays.asList(1L, 3L));
+        assertThat(productIds.get(0)).isEqualTo(1L);
+        assertThat(productIds.get(1)).isEqualTo(3L);
     }
 }

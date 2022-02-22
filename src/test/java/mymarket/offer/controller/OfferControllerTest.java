@@ -92,6 +92,10 @@ public class OfferControllerTest {
 
         //then
         then(offerService).should().save(offer1);
+        assertThat(response).isNotNull();
+        assertThat(response.getContentType()).isNotNull();
+        assertThat(response.getContentAsString()).isNotNull();
+        assertThat(response.getStatus()).isNotNull();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
         assertThat(response.getContentType()).isEqualTo(MediaType.APPLICATION_JSON.toString());
         assertThat(response.getContentAsString()).isEqualTo(asJsonString(offer1));
@@ -111,6 +115,8 @@ public class OfferControllerTest {
 
         //then
         then(offerService).should().save(offer1);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatus()).isNotNull();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
 
@@ -145,6 +151,9 @@ public class OfferControllerTest {
 
         //then
         then(offerService).should().deleteById(offerId);
+
+        assertThat(response).isNotNull();
+        assertThat(response.getStatus()).isNotNull();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
     }
 
@@ -162,6 +171,9 @@ public class OfferControllerTest {
 
         //then
         then(offerService).should().getById(offerId);
+        assertThat(response).isNotNull();
+        assertThat(response.getContentAsString()).isNotNull();
+        assertThat(response.getStatus()).isNotNull();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString()).isEqualTo(asJsonString(offer1));
     }
@@ -180,6 +192,8 @@ public class OfferControllerTest {
 
         //then
         then(offerService).should().getById(offerId);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatus()).isNotNull();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.NOT_FOUND.value());
     }
 
@@ -210,6 +224,9 @@ public class OfferControllerTest {
         then(offerService).should().getByFilters(1L, 1L, Arrays.asList(OfferTypes.values()), Collections.singletonList(Clasifications.Almacen),
                 "Harina", LocalDate.of(2021, 10, 1), LocalDate.of(2021, 11, 1), null,
                 1L, "Mar del Plata", true);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatus()).isNotNull();
+        assertThat(response.getContentAsString()).isNotNull();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK.value());
         assertThat(response.getContentAsString()).isEqualTo(asJsonString(offerList));
     }
